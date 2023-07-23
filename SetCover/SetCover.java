@@ -21,6 +21,21 @@ public class SetCover {
     //this linear programming problem
 
     public static void main(String[] args) {
+        String[] req_skills = {"java","nodejs","reactjs"};
+        List<List<String>> people = new ArrayList<>();
+
+        List<String> larry = new ArrayList<>();
+        larry.add("java");
+        people.add(larry);
+
+        List<String> moe = new ArrayList<>();
+        moe.add("nodejs");
+        people.add(moe);
+
+        List<String> curly = new ArrayList<>();
+        curly.add("nodejs");
+        curly.add("reactjs");
+        people.add(moe);
 
     }
 }
