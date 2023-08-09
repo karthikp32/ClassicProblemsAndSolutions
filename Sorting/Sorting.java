@@ -1,10 +1,11 @@
 package Sorting;
 
 import java.util.List;
-
+import java.util.ArrayList;
 //Sorting Problem:
 //Input: A set of n items
 //Problem description: Arrange the items in increasing order
+import java.util.Arrays;
 
 //Notes:
 //O(n^2) sorting algorithms like insertion sort
@@ -50,7 +51,7 @@ public class Sorting {
     //Merge
     //if left/right sublist have size <=1
     //return left/right sublist     
-
+    //time: O(nlogn) average case, O(n^2) worst case
 
     // input : List<Integer> unsortedArr1 = {1};
     // output: [1] 
@@ -61,7 +62,7 @@ public class Sorting {
 
     // 2nd test case : List<Integer> unsortedArr2 = {4,3,1};
     // output: [1,3,4]
-    public void quickSort(List<Integer> nums) {
+    public static void quickSort(List<Integer> nums) {
         if (nums.size() > 1) {
             int pivot = getPivot(nums);
             List<Integer> leftSubList = new ArrayList<>();
@@ -78,7 +79,7 @@ public class Sorting {
         }
     }
 
-    public int getPivot(List<Integer> nums) {
+    public static int getPivot(List<Integer> nums) {
         int len = nums.size();
         int first = nums.get(0);
         int middle = nums.get(len / 2);
@@ -87,7 +88,7 @@ public class Sorting {
     }
 
     //first = 4, last=1, median = 3
-    public int getMedian(int first, int last, int middle) {
+    public static int getMedian(int first, int last, int middle) {
         if (last >= first && last <= middle || last >= middle && last <= first) {
             return last;
         }
@@ -97,7 +98,7 @@ public class Sorting {
         return middle;
     }
     
-    public void partitionIntoLeftAndRightSublists(List<Integer> nums, List<Integer> leftSubList, List<Integer> rightSubList, int pivot) {
+    public static void partitionIntoLeftAndRightSublists(List<Integer> nums, List<Integer> leftSubList, List<Integer> rightSubList, int pivot) {
         int len = nums.size();
         for (int i=0; i < len; i++) {
             if (nums.get(i) <= pivot) {
@@ -108,26 +109,44 @@ public class Sorting {
         }
     }
 
-    public void merge(List<Integer> nums, List<Integer> leftSubList, List<Integer> rightSubList, int pivot) {
+    public static void merge(List<Integer> nums, List<Integer> leftSubList, List<Integer> rightSubList, int pivot) {
         nums.clear();
         nums.addAll(leftSubList);
-        nums.addAll(pivot);
+        nums.add(pivot);
         nums.addAll(rightSubList);
 
     }
 
+
+    //MergeSort Algorithm:
+    //divide and conquer algorithm
+    //keep splitting the list into halves
+    //until you are left with sublists of size 1
+    //merge the pairs of sublists of size 1
+    //in sorted order
+    //repeats wtih the pairs of sublists of size 2,4,8..
+    //until you have sorted the entire list
+    //time: O(nlogn)
     public void mergeSort(List<Integer> nums) {
 
     }
 
+    public void printList(List<Integer> nums) {
+        for (int i=0; i < nums.size(); i++) {
+            System.out.println(nums.get(i) + ",");
+        }
+    }
     public static void main(String[] args) {
-        List<Integer> unsortedArr1 = {1};
 
-        List<Integer> unsortedArr2 = {4,3,1};
+        List<Integer> unsortedList1 = Arrays.asList(1);
+        quickSort(unsortedList1);
 
-        List<Integer> unsortedArr3 = {4,6,3,10,1};
 
-        List<Integer> unsortedArr4 = {1,2,3,4,5};
+        List<Integer> unsortedList2 = Arrays.asList(4,3,1);
+
+        List<Integer> unsortedList3 = Arrays.asList(4,6,3,10,1);
+
+        List<Integer> unsortedList4 = Arrays.asList(1,2,3,4,5);
     }
 
 }
