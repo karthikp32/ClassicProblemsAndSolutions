@@ -128,9 +128,32 @@ public class Sorting {
     //until you have sorted the entire list
     //time: O(nlogn)
     public void mergeSort(List<Integer> nums) {
-
+        if (nums.size() > 1) {
+            int size = nums.size();
+            List<Integer> leftSubList = new ArrayList<>();
+            List<Integer> rightSubList = new ArrayList<>();
+            int mid = size / 2;
+            leftSubList = nums.subList(0, mid);
+            rightSubList = nums.subList(mid, size);
+            if (leftSubList.size() > 1) {
+                split(leftSubList);
+            }
+            if (rightSubList.size() > 1) {
+                split(rightSubList);
+            }
+        }        
     }
 
+    public static void split(List<Integer> nums) {
+   
+    }
+
+    //merge smaller arrays into larger array
+    //for ex. 2 arrays of length 2 into a larger array of length 4
+    //insert the element of the smaller into the larger array in the correct order
+    public List<Integer> mergeForMergeSort(List<Integer> smallerSub1, List<Integer> smallerSub2) {
+        return null;
+    }
     public void printList(List<Integer> nums) {
         for (int i=0; i < nums.size(); i++) {
             System.out.println(nums.get(i) + ",");
