@@ -127,34 +127,70 @@ public class Sorting {
     //repeats wtih the pairs of sublists of size 2,4,8..
     //until you have sorted the entire list
     //time: O(nlogn)
-    public void mergeSort(List<Integer> nums) {
-        if (nums.size() > 1) {
+    //input:  4,6,3,10,1
+    //output: 1, 3, 4, 6, 10
+
+    //call stack:
+    //mergeSort([4,6,3,10,1])
+
+    public static void mergeSort(List<Integer> nums) {
+        if (nums.size() == 2) {
+            swap(nums);
+        } else if (nums.size() > 2) {
+            //split into halves
             int size = nums.size();
             List<Integer> leftSubList = new ArrayList<>();
             List<Integer> rightSubList = new ArrayList<>();
             int mid = size / 2;
-            leftSubList = nums.subList(0, mid);
-            rightSubList = nums.subList(mid, size);
-            if (leftSubList.size() > 1) {
-                split(leftSubList);
-            }
-            if (rightSubList.size() > 1) {
-                split(rightSubList);
-            }
-        }        
+            leftSubList = nums.subList(0, mid); //
+            rightSubList = nums.subList(mid, size); //
+            //call mergesort on each half
+            mergeSort(leftSubList); //[4,6]
+            mergeSort(rightSubList); //[1,3,10]
+            //merge each half back together
+            List<Integer> merged = mergeForMergeSort(leftSubList, rightSubList); //[1,3,4,6, 10]
+            nums = merged;
+        }
+       
     }
 
-    public static void split(List<Integer> nums) {
-   
+    public static void swap(List<Integer> nums) {
+        if (nums.get(0) > nums.get(1)) {
+            int temp = nums.get(1);
+            int first = nums.get(0);
+            nums.add(1, first);
+            nums.add(0, temp);
+        }
     }
 
     //merge smaller arrays into larger array
     //for ex. 2 arrays of length 2 into a larger array of length 4
     //insert the element of the smaller into the larger array in the correct order
-    public List<Integer> mergeForMergeSort(List<Integer> smallerSub1, List<Integer> smallerSub2) {
-        return null;
+    //                                                          //[4,6]                  //[1,3,10] 
+    public static List<Integer> mergeForMergeSort(List<Integer> smallerSub1, List<Integer> smallerSub2) {
+        List<Integer> merged = new ArrayList<>();
+        int ptr1 = 0, ptr2 = 0; 
+        int size1 = smallerSub1.size();
+        int size2 = smallerSub2.size();
+        while (ptr1 < size1 && ptr2 < size2) {
+            if (smallerSub1.get(ptr1) <= smallerSub2.get(ptr2)) {
+                merged.add(smallerSub1.get(ptr1)); //[1,3,4,6]
+                ptr1++;
+            } else {
+                merged.add(smallerSub2.get(ptr2)); 
+                ptr2++;
+            }
+        }
+        if (ptr1 < size1) {
+            merged.addAll(smallerSub1.subList(ptr1, size1));
+        }
+        if (ptr2 < size2) {
+            merged.addAll(smallerSub2.subList(ptr2, size2)); //[1,3,4,6, 10]
+        }
+        return merged;
     }
-    public void printList(List<Integer> nums) {
+
+    public static void printList(List<Integer> nums) {
         for (int i=0; i < nums.size(); i++) {
             System.out.println(nums.get(i) + ",");
         }
@@ -162,14 +198,23 @@ public class Sorting {
     public static void main(String[] args) {
 
         List<Integer> unsortedList1 = Arrays.asList(1);
-        quickSort(unsortedList1);
+        mergeSort(unsortedList1);
+        printList(unsortedList1);
 
-
-        List<Integer> unsortedList2 = Arrays.asList(4,3,1);
+        List<Integer> unsortedList2 = new ArrayList<>();
+        unsortedList2.add(4);
+        unsortedList2.add(3);
+        unsortedList2.add(1);
+        mergeSort(unsortedList2);
+        printList(unsortedList2);
 
         List<Integer> unsortedList3 = Arrays.asList(4,6,3,10,1);
+        mergeSort(unsortedList3);
+        printList(unsortedList3);
 
         List<Integer> unsortedList4 = Arrays.asList(1,2,3,4,5);
+        mergeSort(unsortedList4);
+        printList(unsortedList4);
     }
 
 }
