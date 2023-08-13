@@ -127,13 +127,14 @@ public class Sorting {
     //repeats wtih the pairs of sublists of size 2,4,8..
     //until you have sorted the entire list
     //time: O(nlogn)
-    //input:  4,6,3,10,1
-    //output: 1, 3, 4, 6, 10
+    //input:  4,3,1
+    //output: 1, 3, 4
 
     //call stack:
-    //mergeSort([4,6,3,10,1])
+    //mergeSort([3,1])
+    //mergeSort([4,3,1])
 
-    public static void mergeSort(List<Integer> nums) {
+    public static List<Integer> mergeSort(List<Integer> nums) {
         if (nums.size() == 2) {
             swap(nums);
         } else if (nums.size() > 2) {
@@ -142,24 +143,26 @@ public class Sorting {
             List<Integer> leftSubList = new ArrayList<>();
             List<Integer> rightSubList = new ArrayList<>();
             int mid = size / 2;
-            leftSubList = nums.subList(0, mid); //
-            rightSubList = nums.subList(mid, size); //
+            leftSubList = sublist(nums,0, mid); //[4]
+            rightSubList = sublist(nums, mid, size); //[3,1]
             //call mergesort on each half
-            mergeSort(leftSubList); //[4,6]
-            mergeSort(rightSubList); //[1,3,10]
+            leftSubList = mergeSort(leftSubList); //[4]
+            rightSubList = mergeSort(rightSubList); //[3,1]
             //merge each half back together
             List<Integer> merged = mergeForMergeSort(leftSubList, rightSubList); //[1,3,4,6, 10]
-            nums = merged;
+            return merged;
         }
+        return nums;
        
     }
 
     public static void swap(List<Integer> nums) {
         if (nums.get(0) > nums.get(1)) {
-            int temp = nums.get(1);
+            int second = nums.get(1);
             int first = nums.get(0);
-            nums.add(1, first);
-            nums.add(0, temp);
+            nums.clear();
+            nums.add(second);
+            nums.add(first);
         }
     }
 
@@ -182,38 +185,51 @@ public class Sorting {
             }
         }
         if (ptr1 < size1) {
-            merged.addAll(smallerSub1.subList(ptr1, size1));
+            merged.addAll(sublist(smallerSub1, ptr1, size1));
         }
         if (ptr2 < size2) {
-            merged.addAll(smallerSub2.subList(ptr2, size2)); //[1,3,4,6, 10]
+            merged.addAll(sublist(smallerSub2, ptr2, size2)); //[1,3,4,6, 10]
         }
         return merged;
     }
 
+    public static List<Integer> sublist(List<Integer> list, int start, int end) {
+        int sz = list.size();
+        List<Integer> result = new ArrayList<>();
+        for (int i=start; i < end; i++) {
+            result.add(list.get(i));
+        }
+        return result;
+    }
+
     public static void printList(List<Integer> nums) {
         for (int i=0; i < nums.size(); i++) {
-            System.out.println(nums.get(i) + ",");
+            System.out.print(nums.get(i) + ",");
         }
     }
+
     public static void main(String[] args) {
 
         List<Integer> unsortedList1 = Arrays.asList(1);
-        mergeSort(unsortedList1);
+        unsortedList1 = mergeSort(unsortedList1);
         printList(unsortedList1);
+        System.out.println();
 
         List<Integer> unsortedList2 = new ArrayList<>();
         unsortedList2.add(4);
         unsortedList2.add(3);
         unsortedList2.add(1);
-        mergeSort(unsortedList2);
+        unsortedList2 = mergeSort(unsortedList2);
         printList(unsortedList2);
+        System.out.println();
 
         List<Integer> unsortedList3 = Arrays.asList(4,6,3,10,1);
-        mergeSort(unsortedList3);
+        unsortedList3 = mergeSort(unsortedList3);
         printList(unsortedList3);
+        System.out.println();
 
-        List<Integer> unsortedList4 = Arrays.asList(1,2,3,4,5);
-        mergeSort(unsortedList4);
+        List<Integer> unsortedList4 = Arrays.asList(5,1,1,2,0,0);
+        unsortedList4 = mergeSort(unsortedList4);
         printList(unsortedList4);
     }
 
