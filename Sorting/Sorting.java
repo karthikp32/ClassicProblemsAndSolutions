@@ -75,7 +75,10 @@ public class Sorting {
             if (rightSubList.size() > 1) {
                 quickSort(rightSubList);
             }
-            merge(nums, leftSubList, rightSubList, pivot);
+            if (leftSubList.size() <= 1 && rightSubList.size() <= 1) {
+                merge(nums, leftSubList, rightSubList, pivot);
+            }
+
         }
     }
 
