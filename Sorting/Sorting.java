@@ -62,6 +62,9 @@ public class Sorting {
 
     // 2nd test case : List<Integer> unsortedArr2 = {4,3,1};
     // output: [1,3,4]
+    // call stack
+    // quickSort([3,1])
+    // quickSort([4,3,1])
     public static void quickSort(List<Integer> nums) {
         if (nums.size() > 1) {
             int pivot = getPivot(nums);
@@ -70,23 +73,22 @@ public class Sorting {
             partitionIntoLeftAndRightSublists(nums, leftSubList, rightSubList, pivot); 
             //tested 2nd test case up to after this partitioning
             if (leftSubList.size() > 1) {
-                quickSort(leftSubList);
+                quickSort(leftSubList); //[1,3]
             }
-            if (rightSubList.size() > 1) {
-                quickSort(rightSubList);
+            if (rightSubList.size() > 1) { //[4]
+                quickSort(rightSubList); 
             }
-            if (leftSubList.size() <= 1 && rightSubList.size() <= 1) {
-                merge(nums, leftSubList, rightSubList, pivot);
-            }
+            merge(nums, leftSubList, rightSubList, pivot);
+            
 
         }
     }
 
     public static int getPivot(List<Integer> nums) {
         int len = nums.size();
-        int first = nums.get(0);
-        int middle = nums.get(len / 2);
-        int last = nums.get(len - 1);
+        int first = nums.get(0); 
+        int middle = nums.get(len / 2); 
+        int last = nums.get(len - 1); 
         return getMedian(first, last, middle);
     }
 
@@ -105,9 +107,9 @@ public class Sorting {
         int len = nums.size();
         for (int i=0; i < len; i++) {
             if (nums.get(i) <= pivot) {
-                leftSubList.add(nums.get(i)); //[3,1]
+                leftSubList.add(nums.get(i)); //[1]
             } else {
-                rightSubList.add(nums.get(i)); //[4]
+                rightSubList.add(nums.get(i)); //[3]
             }
         }
     }
@@ -115,7 +117,7 @@ public class Sorting {
     public static void merge(List<Integer> nums, List<Integer> leftSubList, List<Integer> rightSubList, int pivot) {
         nums.clear();
         nums.addAll(leftSubList);
-        nums.add(pivot);
+        // nums.add(pivot);
         nums.addAll(rightSubList);
 
     }
@@ -214,25 +216,34 @@ public class Sorting {
     public static void main(String[] args) {
 
         List<Integer> unsortedList1 = Arrays.asList(1);
-        unsortedList1 = mergeSort(unsortedList1);
+        // unsortedList1 = mergeSort(unsortedList1);
+        quickSort(unsortedList1);
         printList(unsortedList1);
         System.out.println();
 
-        List<Integer> unsortedList2 = new ArrayList<>();
-        unsortedList2.add(4);
-        unsortedList2.add(3);
-        unsortedList2.add(1);
-        unsortedList2 = mergeSort(unsortedList2);
-        printList(unsortedList2);
-        System.out.println();
+        // List<Integer> unsortedList2 = new ArrayList<>();
+        // unsortedList2.add(4);
+        // unsortedList2.add(3);
+        // unsortedList2.add(1);
+        // // unsortedList2 = mergeSort(unsortedList2);
+        // quickSort(unsortedList2);
+        // printList(unsortedList2);
+        // System.out.println();
 
-        List<Integer> unsortedList3 = Arrays.asList(4,6,3,10,1);
-        unsortedList3 = mergeSort(unsortedList3);
+        List<Integer> unsortedList3 = new ArrayList<>(); 
+        // unsortedList3 = mergeSort(unsortedList3);
+        unsortedList3.add(4);
+        unsortedList3.add(6);
+        unsortedList3.add(3);
+        unsortedList3.add(10);
+        unsortedList3.add(1);
+        quickSort(unsortedList3);
         printList(unsortedList3);
         System.out.println();
 
         List<Integer> unsortedList4 = Arrays.asList(5,1,1,2,0,0);
-        unsortedList4 = mergeSort(unsortedList4);
+        // unsortedList4 = mergeSort(unsortedList4);
+        quickSort(unsortedList4);
         printList(unsortedList4);
     }
 
