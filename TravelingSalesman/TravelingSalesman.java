@@ -34,6 +34,15 @@ public class TravelingSalesman {
     public Graph getMinimumCostCycle() {
         return new Graph();
     }
+
+    public List<String> getAll2OptMovesBtwnCurrAndSuccessorNode() {
+
+    }
+
+    public int getLengthOfSmallestTourAmongOptimalMoves() {
+        return -1;
+    }
+    
     public static void main(String[] args) {
 
     }
